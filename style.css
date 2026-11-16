@@ -1238,3 +1238,411 @@ body > :not(.seasonal-effects) {
         animation: none !important;
     }
 }
+
+/* =====================================
+   CAMPUSFIX TIU - MAIN CSS
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    color: #222;
+    min-height: 100vh;
+    transition: background 0.6s ease, color 0.6s ease;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+/* HEADER */
+
+header {
+    background: #1e3a5f;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 15px;
+}
+
+/* FORM */
+
+form {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    margin: 20px 0;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button {
+    background: #1e88e5;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #1565c0;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+/* ISSUE CARDS */
+
+#issuesList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin: 20px 0;
+}
+
+.issue-card {
+    background: white;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.issue-card h3 {
+    margin-bottom: 10px;
+    color: #1e3a5f;
+}
+
+.issue-card p {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.issue-card button {
+    margin: 5px 5px 0 0;
+}
+
+#imagePreview {
+    display: block;
+    max-width: 100%;
+    max-height: 220px;
+    margin: 10px 0;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* SEARCH AND FILTERS */
+
+.filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+/* =====================================
+   SEASONAL THEMES
+===================================== */
+
+/* SUMMER DAY */
+
+body.theme-summer-day {
+    background: linear-gradient(135deg, #fff3cd, #ffe0a3);
+    color: #533b16;
+}
+
+body.theme-summer-day header {
+    background: #e99b22;
+}
+
+/* SUMMER NIGHT */
+
+body.theme-summer-night {
+    background: linear-gradient(135deg, #202b4a, #493b68);
+    color: #f7eac8;
+}
+
+body.theme-summer-night header {
+    background: #283653;
+}
+
+/* MONSOON DAY */
+
+body.theme-monsoon-day {
+    background: linear-gradient(135deg, #dceaf3, #a9c9dc);
+    color: #183447;
+}
+
+body.theme-monsoon-day header {
+    background: #386b86;
+}
+
+/* MONSOON NIGHT */
+
+body.theme-monsoon-night {
+    background: linear-gradient(135deg, #152c43, #304d68);
+    color: #e4f1fa;
+}
+
+body.theme-monsoon-night header {
+    background: #172f49;
+}
+
+/* AUTUMN DAY */
+
+body.theme-autumn-day {
+    background: linear-gradient(135deg, #fff0dc, #eec49a);
+    color: #59351e;
+}
+
+body.theme-autumn-day header {
+    background: #a85d32;
+}
+
+/* AUTUMN NIGHT */
+
+body.theme-autumn-night {
+    background: linear-gradient(135deg, #35283b, #68434a);
+    color: #f9e8dc;
+}
+
+body.theme-autumn-night header {
+    background: #49303a;
+}
+
+/* WINTER DAY */
+
+body.theme-winter-day {
+    background: linear-gradient(135deg, #edf8ff, #c9e3f5);
+    color: #183b55;
+}
+
+body.theme-winter-day header {
+    background: #4e91b8;
+}
+
+/* WINTER NIGHT */
+
+body.theme-winter-night {
+    background: linear-gradient(135deg, #14283f, #304d6d);
+    color: #eaf5ff;
+}
+
+body.theme-winter-night header {
+    background: #172e4b;
+}
+
+/* CARDS IN ALL THEMES */
+
+body[class*="theme-"] form,
+body[class*="theme-"] .dashboard-card,
+body[class*="theme-"] .issue-card {
+    background: rgba(255, 255, 255, 0.92);
+    color: #222;
+}
+
+/* =====================================
+   WEATHER EFFECTS
+===================================== */
+
+.seasonal-effects {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.weather-particle {
+    position: absolute;
+    top: -30px;
+    left: var(--left);
+    font-size: var(--size);
+    opacity: 0.8;
+    animation: weather-fall var(--duration) linear infinite;
+    animation-delay: var(--delay);
+    will-change: transform;
+}
+
+@keyframes weather-fall {
+    0% {
+        transform: translate3d(0, -30px, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: translate3d(var(--drift), 110vh, 0) rotate(360deg);
+    }
+}
+
+/* SUMMER SPARKLES */
+
+body.theme-summer-day .weather-particle {
+    color: #ffb300;
+    text-shadow: 0 0 12px #ffd54f;
+}
+
+/* MONSOON RAIN */
+
+body[class*="theme-monsoon"] .weather-particle {
+    color: #65a9e0;
+    font-size: 18px;
+    opacity: 0.65;
+}
+
+/* AUTUMN LEAVES */
+
+body[class*="theme-autumn"] .weather-particle {
+    color: #d66b27;
+    font-size: 24px;
+}
+
+/* WINTER SNOW */
+
+body[class*="theme-winter"] .weather-particle {
+    color: white;
+    text-shadow: 0 0 8px #b9e5ff;
+    font-size: 20px;
+}
+
+/* CLOUD */
+
+.weather-cloud {
+    position: absolute;
+    top: 8%;
+    left: -180px;
+    width: 140px;
+    height: 45px;
+    background: rgba(255,255,255,0.65);
+    border-radius: 50px;
+    filter: blur(2px);
+    animation: cloud-move 35s linear infinite;
+}
+
+.weather-cloud::before,
+.weather-cloud::after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.weather-cloud::before {
+    width: 60px;
+    height: 60px;
+    top: -25px;
+    left: 20px;
+}
+
+.weather-cloud::after {
+    width: 75px;
+    height: 75px;
+    top: -35px;
+    right: 15px;
+}
+
+@keyframes cloud-move {
+    from {
+        transform: translateX(-180px);
+    }
+
+    to {
+        transform: translateX(calc(100vw + 200px));
+    }
+}
+
+/* =====================================
+   NIGHT EFFECTS
+===================================== */
+
+body[class*="-night"] .weather-particle {
+    text-shadow: 0 0 10px rgba(255,255,255,0.7);
+}
+
+body[class*="-night"] .weather-cloud {
+    background: rgba(190, 205, 225, 0.35);
+}
+
+/* =====================================
+   RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 22px;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    #issuesList {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =====================================
+   REDUCED MOTION ACCESSIBILITY
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
