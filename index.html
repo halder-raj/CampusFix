@@ -71,6 +71,71 @@
     </section>
 
 
+<!-- SEASON AND SKY STATUS PANEL -->
+<section class="sky-dashboard">
+
+    <div class="sky-heading">
+        <span>🌍 CAMPUSFIX LIVE SKY</span>
+        <h2>Season & Weather</h2>
+        <p id="skyMessage">Loading sky information...</p>
+    </div>
+
+    <div class="sky-status">
+        <div class="sky-status-card">
+            <span>🌿 Current Season</span>
+            <h3 id="seasonName">Loading...</h3>
+        </div>
+
+        <div class="sky-status-card">
+            <span>🕒 Time Status</span>
+            <h3 id="dayNightName">Loading...</h3>
+        </div>
+
+        <div class="sky-status-card">
+            <span>⏰ Local Time</span>
+            <h3 id="liveClock">--:--:--</h3>
+        </div>
+
+        <div class="sky-status-card">
+            <span>⚙️ Theme Mode</span>
+            <h3 id="themeModeName">AUTO</h3>
+        </div>
+    </div>
+
+    <div class="theme-controls">
+        <h3>🧪 Theme Test Panel</h3>
+
+        <label for="seasonTest">Choose Season</label>
+        <select id="seasonTest">
+            <option value="auto">Automatic Season</option>
+            <option value="summer">☀️ Summer</option>
+            <option value="monsoon">🌧️ Monsoon</option>
+            <option value="autumn">🍂 Autumn</option>
+            <option value="winter">❄️ Winter</option>
+        </select>
+
+        <label for="timeTest">Choose Time</label>
+        <select id="timeTest">
+            <option value="auto">Automatic Time</option>
+            <option value="day">☀️ Morning / Day</option>
+            <option value="sunset">🌇 Evening / Sunset</option>
+            <option value="night">🌙 Night</option>
+        </select>
+
+        <button id="resetThemeTest" type="button">
+            ↻ Reset to Automatic
+        </button>
+    </div>
+
+</section>
+
+<!-- SKY VISUAL EFFECTS -->
+<div id="skyLayer" class="sky-layer">
+    <div id="sunVisual" class="sun-visual">☀️</div>
+    <div id="moonVisual" class="moon-visual">🌙</div>
+    <div id="skyParticles"></div>
+</div>
+
     <!-- MAIN CONTENT -->
     <main class="container">
 
