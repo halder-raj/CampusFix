@@ -1072,3 +1072,169 @@ button {
     border-radius: 10px;
     border: 1px solid var(--border);
 }
+
+/* =====================================
+   SEASONAL WEATHER ANIMATIONS
+===================================== */
+
+.seasonal-effects {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    contain: strict;
+}
+
+/* Keep website content above animation */
+
+body > :not(.seasonal-effects) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Common particles */
+
+.weather-particle {
+    position: absolute;
+    top: -50px;
+    left: var(--x);
+    font-size: var(--size);
+    animation: weather-fall var(--duration) linear infinite;
+    animation-delay: var(--delay);
+    opacity: 0;
+    will-change: transform;
+}
+
+@keyframes weather-fall {
+    0% {
+        transform: translate3d(0, -5vh, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.85;
+    }
+    90% {
+        opacity: 0.85;
+    }
+    100% {
+        transform: translate3d(var(--drift), 110vh, 0)
+                   rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* RAIN */
+
+.seasonal-effects.monsoon::before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    width: 220px;
+    height: 65px;
+    transform: translateX(-50%);
+    border-radius: 60px;
+    background: rgba(100, 120, 140, 0.17);
+    box-shadow:
+        -65px 12px 0 rgba(100, 120, 140, 0.12),
+        65px 12px 0 rgba(100, 120, 140, 0.12);
+    filter: blur(12px);
+    animation: cloud-move 12s ease-in-out infinite alternate;
+}
+
+.seasonal-effects.monsoon .weather-particle {
+    color: #55baf0;
+    text-shadow: 0 0 5px #8bd6ff;
+}
+
+@keyframes cloud-move {
+    from { transform: translateX(-60%); }
+    to { transform: translateX(-35%); }
+}
+
+/* LEAVES */
+
+.seasonal-effects.autumn .weather-particle {
+    color: #d88936;
+    text-shadow: 0 0 5px #e9a95c;
+}
+
+/* SNOW */
+
+.seasonal-effects.winter .weather-particle {
+    color: white;
+    text-shadow: 0 0 8px #a9ddff;
+}
+
+/* SUMMER SUN */
+
+.seasonal-effects.summer.day::before {
+    content: "☀";
+    position: absolute;
+    top: 85px;
+    right: 7%;
+    font-size: 65px;
+    color: #f5bb32;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 18px #ffd45e);
+    animation: sun-glow 4s ease-in-out infinite alternate;
+}
+
+@keyframes sun-glow {
+    from { transform: scale(0.95); opacity: 0.55; }
+    to { transform: scale(1.08); opacity: 0.9; }
+}
+
+/* NIGHT SKY */
+
+.seasonal-effects.night::before {
+    content: "☾";
+    position: absolute;
+    top: 85px;
+    right: 8%;
+    font-size: 55px;
+    color: #f8e7a5;
+    opacity: 0.75;
+    filter: drop-shadow(0 0 15px #fff0b0);
+}
+
+.seasonal-effects.night::after {
+    content: "✦     ·      ✧       ·       ✦";
+    position: absolute;
+    top: 30px;
+    left: 10%;
+    width: 80%;
+    color: #fff3bd;
+    font-size: 24px;
+    letter-spacing: 22px;
+    animation: star-twinkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes star-twinkle {
+    from { opacity: 0.3; }
+    to { opacity: 0.95; }
+}
+
+/* HEAT WAVES */
+
+.seasonal-effects.summer.day .weather-particle {
+    color: #ffc85c;
+    text-shadow: 0 0 10px #ffd76d;
+}
+
+/* NIGHT RAIN */
+
+.seasonal-effects.monsoon.night::before {
+    background: rgba(110, 140, 170, 0.2);
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    .weather-particle,
+    .seasonal-effects::before,
+    .seasonal-effects::after {
+        animation: none !important;
+    }
+}
