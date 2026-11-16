@@ -1646,3 +1646,351 @@ body[class*="-night"] .weather-cloud {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* =========================================
+   CAMPUSFIX SEASONAL SKY SYSTEM
+========================================= */
+
+body {
+    transition: background 1.5s ease, color 1s ease;
+    min-height: 100vh;
+}
+
+/* SKY DASHBOARD */
+
+.sky-dashboard {
+    position: relative;
+    z-index: 3;
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 25px;
+    width: 92%;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.09);
+}
+
+.sky-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sky-heading > span {
+    color: #dc2626;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.sky-heading h2 {
+    margin: 8px 0;
+    color: #222;
+}
+
+.sky-heading p {
+    color: #666;
+}
+
+.sky-status {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.sky-status-card {
+    background: #f7f7f8;
+    padding: 16px 10px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.sky-status-card span {
+    font-size: 13px;
+    color: #666;
+}
+
+.sky-status-card h3 {
+    margin-top: 8px;
+    font-size: 17px;
+    color: #dc2626;
+}
+
+/* TEST PANEL */
+
+.theme-controls {
+    margin-top: 22px;
+    padding: 18px;
+    background: #fff5f5;
+    border: 1px solid #fee2e2;
+    border-radius: 12px;
+}
+
+.theme-controls h3 {
+    margin-bottom: 12px;
+    color: #b91c1c;
+}
+
+.theme-controls label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.theme-controls select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+}
+
+#resetThemeTest {
+    margin-top: 10px;
+    width: 100%;
+    background: #dc2626;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* SKY LAYER */
+
+.sky-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.site-header,
+.hero,
+.container,
+.site-footer,
+.sky-dashboard {
+    position: relative;
+    z-index: 2;
+}
+
+/* SUN */
+
+.sun-visual {
+    position: absolute;
+    top: 12%;
+    left: 75%;
+    font-size: 65px;
+    filter: drop-shadow(0 0 22px #ffd54f);
+    transition: top 2s ease, opacity 1s ease;
+    opacity: 0;
+}
+
+/* MOON */
+
+.moon-visual {
+    position: absolute;
+    top: 12%;
+    right: 13%;
+    font-size: 58px;
+    filter: drop-shadow(0 0 20px #dcecff);
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+/* STARS, RAIN, SNOW, LEAVES */
+
+.sky-particle {
+    position: absolute;
+    top: -30px;
+    left: var(--left);
+    font-size: var(--size);
+    opacity: 0.85;
+    animation: sky-fall var(--duration) linear infinite;
+    animation-delay: var(--delay);
+}
+
+@keyframes sky-fall {
+    from {
+        transform: translateY(-30px) translateX(0) rotate(0);
+    }
+
+    to {
+        transform: translateY(110vh)
+                   translateX(var(--drift))
+                   rotate(360deg);
+    }
+}
+
+/* STARS */
+
+.sky-star {
+    position: absolute;
+    left: var(--left);
+    top: var(--top);
+    color: white;
+    font-size: var(--size);
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.25; }
+    to { opacity: 1; }
+}
+
+/* SUMMER */
+
+body.theme-summer-day {
+    background: linear-gradient(135deg, #fff3c4, #ffd78a);
+}
+
+body.theme-summer-day .hero {
+    background: rgba(255, 249, 225, 0.85);
+}
+
+body.theme-summer-night {
+    background: linear-gradient(135deg, #182442, #55416b);
+}
+
+/* MONSOON */
+
+body.theme-monsoon-day {
+    background: linear-gradient(135deg, #d5e8f2, #91b9d0);
+}
+
+body.theme-monsoon-night {
+    background: linear-gradient(135deg, #101e32, #29445d);
+}
+
+/* AUTUMN */
+
+body.theme-autumn-day {
+    background: linear-gradient(135deg, #ffebd2, #dba16c);
+}
+
+body.theme-autumn-night {
+    background: linear-gradient(135deg, #30232d, #63404a);
+}
+
+/* WINTER */
+
+body.theme-winter-day {
+    background: linear-gradient(135deg, #e8f6ff, #b9d9ed);
+}
+
+body.theme-winter-night {
+    background: linear-gradient(135deg, #101c35, #263e60);
+}
+
+/* SUNSET */
+
+body.theme-sunset .sun-visual {
+    top: 48%;
+    opacity: 1;
+}
+
+body.theme-sunset {
+    background: linear-gradient(
+        180deg,
+        #f6a66f,
+        #d87869,
+        #493b62
+    );
+}
+
+/* NIGHT SKY */
+
+body[class*="-night"] .moon-visual {
+    opacity: 1;
+}
+
+body[class*="-night"] .sun-visual {
+    opacity: 0;
+}
+
+body[class*="-night"] .sky-dashboard {
+    background: rgba(20, 32, 54, 0.94);
+    border-color: rgba(255,255,255,0.15);
+    color: white;
+}
+
+body[class*="-night"] .sky-heading h2,
+body[class*="-night"] .sky-heading p,
+body[class*="-night"] .sky-status-card span {
+    color: #e5efff;
+}
+
+body[class*="-night"] .sky-status-card {
+    background: rgba(255,255,255,0.09);
+}
+
+body[class*="-night"] .theme-controls {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.15);
+}
+
+body[class*="-night"] .theme-controls h3,
+body[class*="-night"] .theme-controls label {
+    color: white;
+}
+
+/* NIGHT CONTENT */
+
+body[class*="-night"] .hero {
+    background: rgba(20, 32, 54, 0.82);
+    color: white;
+    border-color: rgba(255,255,255,0.1);
+}
+
+body[class*="-night"] .hero h2,
+body[class*="-night"] .hero p {
+    color: white;
+}
+
+body[class*="-night"] .section-heading h2 {
+    color: white;
+}
+
+/* PARTICLE COLORS */
+
+body.theme-monsoon-day .sky-particle,
+body.theme-monsoon-night .sky-particle {
+    color: #80caff;
+}
+
+body.theme-autumn-day .sky-particle,
+body.theme-autumn-night .sky-particle {
+    color: #c75b24;
+}
+
+body.theme-winter-day .sky-particle,
+body.theme-winter-night .sky-particle {
+    color: white;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+    .sky-status {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sky-dashboard {
+        padding: 16px;
+    }
+
+    .sun-visual {
+        font-size: 48px;
+    }
+
+    .moon-visual {
+        font-size: 45px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sky-particle,
+    .sky-star {
+        animation: none !important;
+    }
+}
