@@ -559,6 +559,237 @@ updateSeasonalTheme();
 
 setInterval(updateSeasonalTheme, 60000);
 
+/* =========================================
+   CAMPUSFIX LIVE SEASON & SKY SYSTEM
+========================================= */
+
+const seasonTest = document.getElementById("seasonTest");
+const timeTest = document.getElementById("timeTest");
+const resetThemeTest = document.getElementById("resetThemeTest");
+
+const seasonName = document.getElementById("seasonName");
+const dayNightName = document.getElementById("dayNightName");
+const liveClock = document.getElementById("liveClock");
+const themeModeName = document.getElementById("themeModeName");
+const skyMessage = document.getElementById("skyMessage");
+
+const sunVisual = document.getElementById("sunVisual");
+const moonVisual = document.getElementById("moonVisual");
+const skyParticles = document.getElementById("skyParticles");
+
+let previousSkyEffect = "";
+
+/* GET SEASON */
+
+function getCurrentSeason(month) {
+    if (month >= 2 && month <= 4) return "summer";
+    if (month >= 5 && month <= 8) return "monsoon";
+    if (month >= 9 && month <= 10) return "autumn";
+    return "winter";
+}
+
+/* GET TIME PERIOD */
+
+function getCurrentPeriod(hour) {
+    if (hour >= 6 && hour < 16) return "day";
+    if (hour >= 16 && hour < 18) return "sunset";
+    return "night";
+}
+
+/* CREATE SKY EFFECTS */
+
+function createSkyEffects(season, period) {
+
+    const effectKey = season + "-" + period;
+
+    if (previousSkyEffect === effectKey) return;
+
+    previousSkyEffect = effectKey;
+    skyParticles.innerHTML = "";
+
+    const particleTypes = {
+        summer: ["✨", "☀️", "✦"],
+        monsoon: ["💧", "🌧️", "💧"],
+        autumn: ["🍂", "🍁", "🍂"],
+        winter: ["❄️", "❄️", "✧"]
+    };
+
+    /* STARS AT NIGHT */
+
+    if (period === "night") {
+        for (let i = 0; i < 45; i++) {
+            const star = document.createElement("span");
+            star.className = "sky-star";
+            star.textContent = "✦";
+
+            star.style.setProperty("--left", Math.random() * 100 + "%");
+            star.style.setProperty("--top", Math.random() * 75 + "%");
+            star.style.setProperty("--size", (5 + Math.random() * 9) + "px");
+
+            skyParticles.appendChild(star);
+        }
+    }
+
+    /* SEASON PARTICLES */
+
+    const symbols = particleTypes[season];
+
+    if (period !== "night" || season === "winter" || season === "autumn") {
+        for (let i = 0; i < 22; i++) {
+            const particle = document.createElement("span");
+
+            particle.className = "sky-particle";
+            particle.textContent =
+                symbols[Math.floor(Math.random() * symbols.length)];
+
+            particle.style.setProperty("--left", Math.random() * 100 + "%");
+            particle.style.setProperty("--size", (12 + Math.random() * 14) + "px");
+            particle.style.setProperty("--duration", (7 + Math.random() * 10) + "s");
+            particle.style.setProperty("--delay", (-Math.random() * 15) + "s");
+            particle.style.setProperty("--drift", (Math.random() * 120 - 60) + "px");
+
+            skyParticles.appendChild(particle);
+        }
+    }
+}
+
+/* UPDATE EVERYTHING */
+
+function updateSeasonalSky() {
+
+    const now = new Date();
+
+    const month = now.getMonth();
+    const hour = now.getHours();
+
+    const actualSeason = getCurrentSeason(month);
+    const actualPeriod = getCurrentPeriod(hour);
+
+    const selectedSeason = seasonTest.value;
+    const selectedPeriod = timeTest.value;
+
+    const season =
+        selectedSeason === "auto"
+            ? actualSeason
+            : selectedSeason;
+
+    const period =
+        selectedPeriod === "auto"
+            ? actualPeriod
+            : selectedPeriod;
+
+    const isAuto =
+        selectedSeason === "auto" &&
+        selectedPeriod === "auto";
+
+    /* UPDATE CLOCK */
+
+    liveClock.textContent = now.toLocaleTimeString();
+
+    /* UPDATE STATUS */
+
+    const seasonLabels = {
+        summer: "☀️ Summer",
+        monsoon: "🌧️ Monsoon",
+        autumn: "🍂 Autumn",
+        winter: "❄️ Winter"
+    };
+
+    seasonName.textContent = seasonLabels[season];
+
+    const periodLabels = {
+        day: "☀️ Day",
+        sunset: "🌇 Sunset",
+        night: "🌙 Night"
+    };
+
+    dayNightName.textContent = periodLabels[period];
+
+    themeModeName.textContent = isAuto ? "AUTO" : "TEST MODE";
+
+    /* CHANGE BODY THEME */
+
+    document.body.classList.remove(
+        "theme-summer-day",
+        "theme-summer-night",
+        "theme-monsoon-day",
+        "theme-monsoon-night",
+        "theme-autumn-day",
+        "theme-autumn-night",
+        "theme-winter-day",
+        "theme-winter-night",
+        "theme-sunset"
+    );
+
+    if (period === "sunset") {
+        document.body.classList.add("theme-sunset");
+    } else {
+        document.body.classList.add(
+            "theme-" + season + "-" + period
+        );
+    }
+
+    /* SUN POSITION */
+
+    if (period === "day") {
+        sunVisual.style.opacity = "1";
+        moonVisual.style.opacity = "0";
+
+        const minutes = now.getHours() * 60 + now.getMinutes();
+        const progress = Math.max(0, Math.min(1, (minutes - 360) / 600));
+
+        sunVisual.style.top = (10 + progress * 28) + "%";
+    }
+
+    if (period === "sunset") {
+        sunVisual.style.opacity = "1";
+        moonVisual.style.opacity = "0";
+        sunVisual.style.top = "48%";
+    }
+
+    if (period === "night") {
+        sunVisual.style.opacity = "0";
+        moonVisual.style.opacity = "1";
+    }
+
+    /* MESSAGE */
+
+    const messages = {
+        summer: "Warm summer sky is active!",
+        monsoon: "Monsoon clouds and rain are active!",
+        autumn: "Autumn leaves are falling!",
+        winter: "Winter snow effects are active!"
+    };
+
+    skyMessage.textContent =
+        messages[season] + " " + periodLabels[period];
+
+    /* EFFECTS */
+
+    createSkyEffects(season, period);
+}
+
+/* TEST CONTROLS */
+
+if (seasonTest && timeTest) {
+    seasonTest.addEventListener("change", updateSeasonalSky);
+    timeTest.addEventListener("change", updateSeasonalSky);
+}
+
+if (resetThemeTest) {
+    resetThemeTest.addEventListener("click", function () {
+        seasonTest.value = "auto";
+        timeTest.value = "auto";
+        updateSeasonalSky();
+    });
+}
+
+/* START */
+
+updateSeasonalSky();
+
+setInterval(updateSeasonalSky, 1000);
+
 
     
    
